@@ -37,7 +37,7 @@
 
 #include "ofxFXObject.h"
 
-ofxFXObject::ofxFXObject():nTextures(0){
+ofxFXObject::ofxFXObject():textures(NULL), nTextures(0){
     // Simple effect just need this three variables
     // For something more complex that require another structure, logic or more shaders working together
     // think on making a new stand-alone class as the ofxBlur, ofxFluid, ofxGlow, etc ...
@@ -129,6 +129,13 @@ ofxFXObject& ofxFXObject::operator =(ofxFXObject& parent){
     allocate(resolution.x, resolution.y);
     
     return * this;
+}
+
+ofTexture& ofxFXObject::operator[](int _nText){
+    if ((_nText < nTextures) && (_nText >= 0) ) {
+        return textures[_nText].getTextureReference();
+    }
+    return getTextureReference();
 }
 
 
